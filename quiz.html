@@ -2,61 +2,73 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Modern Quiz App</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Technology Trivia Quiz</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
-  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/js-confetti@latest/dist/js-confetti.browser.js"></script>
 </head>
 <body>
 
-<div class="start_screen">
-  <h1>Ultimate Quiz</h1>
-  <button class="start_btn">Start Quiz</button>
-</div>
+  <div class="quiz_container">
 
-<div class="info_box">
-  <h2>Quiz Rules</h2>
-  <ul>
-    <li>15 seconds per question</li>
-    <li>No going back after answering</li>
-    <li>Earn bonus for streaks!</li>
-  </ul>
-  <div class="buttons">
-    <button class="quit">Exit</button>
-    <button class="restart">Continue</button>
-  </div>
-</div>
-
-<div class="quiz_box">
-  <header>
-    <div class="timer_circle">
-      <svg>
-        <circle cx="50" cy="50" r="45"></circle>
-        <circle cx="50" cy="50" r="45" id="progress"></circle>
-      </svg>
-      <div class="timer_sec">15</div>
+    <!-- Start Screen -->
+    <div class="start_screen activeStart">
+      <h2>Welcome to Technology Trivia!</h2>
+      <button class="start_btn"><span>Start Quiz</span></button>
     </div>
-    <div class="time_left_txt">Time Left</div>
-  </header>
-  
-  <section class="que_text"></section>
-  <div class="option_list"></div>
 
-  <footer>
-    <div class="total_que"></div>
-    <button class="next_btn">Next</button>
-  </footer>
-</div>
+    <!-- Info Box -->
+    <div class="info_box">
+      <header>
+        <h3>Rules</h3>
+        <p>Test your knowledge on technology-related trivia. You will have 15 seconds for each question.</p>
+      </header>
+      <div class="buttons">
+        <button class="quit">Exit</button>
+        <button class="restart">Continue</button>
+      </div>
+    </div>
 
-<div class="result_box">
-  <h2>Quiz Completed!</h2>
-  <div class="score_text"></div>
-  <div class="buttons">
-    <button class="restart">Replay Quiz</button>
-    <button class="quit">Quit</button>
+    <!-- Quiz Box -->
+    <div class="quiz_box">
+      <header>
+        <div class="time_line"></div>
+        <div class="timer">
+          <span class="time_left_txt">Time Left</span>
+          <span class="timer_sec">15</span>
+        </div>
+      </header>
+      <div class="que_text"></div>
+      <div class="option_list"></div>
+      <footer>
+        <span class="total_que"></span>
+        <button class="next_btn">Next</button>
+      </footer>
+    </div>
+
+    <!-- Result Box -->
+    <div class="result_box">
+      <header>
+        <h3>Quiz Finished!</h3>
+      </header>
+      <div class="score_text"></div>
+      <div class="buttons">
+        <button class="restart">Try Again</button>
+        <button class="quit">Exit</button>
+      </div>
+      <div class="leaderboard">
+        <h3>Leaderboard</h3>
+        <ul></ul>
+      </div>
+    </div>
+
+    <!-- Dark Mode Toggle -->
+    <button id="darkModeToggle">
+      <i class="fas fa-moon"></i>
+    </button>
   </div>
-</div>
 
-<script src="script.js"></script>
-
+  <script src="script.js"></script>
 </body>
 </html>
