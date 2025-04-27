@@ -44,7 +44,7 @@ continueBtn.onclick = () => {
 document.querySelector(".result_box .buttons .restart").onclick = () => {
   resultBox.classList.remove("activeResult");
   quizBox.classList.add("activeQuiz");
-  resetQuiz();
+  resetAndGetNewQuestions();
   initializeQuiz();
 };
 
@@ -95,7 +95,7 @@ function updateQuiz() {
 
 function showQuestions(index) {
   const queText = document.querySelector(".que_text");
-  let queTag = `<span>${questions[index].numb}. ${questions[index].question} 
+  let queTag = `<span>${questions[index].question} 
   <span class="badge ${questions[index].level.toLowerCase()}">${questions[index].level}</span>
   </span>`;
   let optionTag = questions[index].options.map(option => `<div class="option"><span>${option}</span></div>`).join('');
@@ -147,17 +147,31 @@ function showResult() {
   quizBox.classList.remove("activeQuiz");
   resultBox.classList.add("activeResult");
   const scoreText = resultBox.querySelector(".score_text");
+  const messageText = resultBox.querySelector(".result_message .message");
+  const subMessageText = resultBox.querySelector(".result_message .sub_message");
   let scoreTag = '';
+  let message = '';
+  let subMessage = '';
 
   if (userScore > 4) {
-    scoreTag = `<span>🎉 Awesome! You got <p>${userScore}</p> out of <p>${questions.length}</p></span>`;
+    scoreTag = `<span>🎉 <span class="score">${userScore}</span> out of <span class="total">${questions.length}</span></span>`;
+    message = "Outstanding Performance!";
+    subMessage = "You're a tech genius!";
+    triggerConfetti();
   } else if (userScore > 2) {
-    scoreTag = `<span>👍 Nice! You got <p>${userScore}</p> out of <p>${questions.length}</p></span>`;
+    scoreTag = `<span>👍 <span class="score">${userScore}</span> out of <span class="total">${questions.length}</span></span>`;
+    message = "Good Job!";
+    subMessage = "You're on the right track!";
+    triggerConfetti(0.5);
   } else {
-    scoreTag = `<span>😥 Keep Trying! You got only <p>${userScore}</p> out of <p>${questions.length}</p></span>`;
+    scoreTag = `<span>😥 <span class="score">${userScore}</span> out of <span class="total">${questions.length}</span></span>`;
+    message = "Keep Practicing!";
+    subMessage = getRandomQuote();
   }
 
   scoreText.innerHTML = scoreTag;
+  messageText.textContent = message;
+  subMessageText.textContent = subMessage;
 }
 
 function startTimer(time) {
@@ -192,16 +206,21 @@ function startTimerLine(time) {
 }
 
 function queCounter(index) {
-  let totalQueCounTag = `<span><p>${index}</p> of <p>${questions.length}</p> Questions</span>`;
-  bottomQuesCounter.innerHTML = totalQueCounTag;
+  const currentQuestion = document.querySelector('.question-counter .current');
+  const totalQuestions = document.querySelector('.question-counter .total');
+  
+  if (currentQuestion && totalQuestions) {
+    currentQuestion.textContent = index;
+    totalQuestions.textContent = questions.length;
+  }
 }
 
 // Icons
 const tickIconTag = '<div class="icon tick"><i class="fas fa-check"></i></div>';
 const crossIconTag = '<div class="icon cross"><i class="fas fa-times"></i></div>';
 
-// New Technology Trivia Questions
-const questions = [
+// Question Bank
+const questionBank = [
   {
     numb: 1,
     question: "Who is known as the father of the computer?",
@@ -273,5 +292,130 @@ const questions = [
       "Objective-C",
       "Dart"
     ]
+  },
+  {
+    numb: 7,
+    question: "Which technology is used to create decentralized applications?",
+    answer: "Blockchain",
+    level: "Hard",
+    options: [
+      "Blockchain",
+      "Cloud Computing",
+      "Artificial Intelligence",
+      "Virtual Reality"
+    ]
+  },
+  {
+    numb: 8,
+    question: "What does 'AI' stand for in technology?",
+    answer: "Artificial Intelligence",
+    level: "Easy",
+    options: [
+      "Advanced Internet",
+      "Artificial Intelligence",
+      "Automated Interface",
+      "Active Intelligence"
+    ]
+  },
+  {
+    numb: 9,
+    question: "Which company developed the Python programming language?",
+    answer: "Guido van Rossum",
+    level: "Medium",
+    options: [
+      "Microsoft",
+      "Google",
+      "Guido van Rossum",
+      "Apple"
+    ]
+  },
+  {
+    numb: 10,
+    question: "What is the main purpose of a VPN?",
+    answer: "Secure Internet Connection",
+    level: "Medium",
+    options: [
+      "Faster Internet Speed",
+      "Secure Internet Connection",
+      "Free Internet Access",
+      "Better Gaming Experience"
+    ]
   }
 ];
+
+// Function to shuffle array
+function shuffleArray(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+  return array;
+}
+
+// Function to get random questions
+function getRandomQuestions(count = 5) {
+  return shuffleArray([...questionBank]).slice(0, count);
+}
+
+// Initialize questions array
+let questions = getRandomQuestions();
+
+// Function to reset and get new questions
+function resetAndGetNewQuestions() {
+  questions = getRandomQuestions();
+  queCount = 0;
+  queNumb = 1;
+  userScore = 0;
+  widthValue = 0;
+}
+
+// Motivational quotes array
+const motivationalQuotes = [
+  "Every expert was once a beginner. Keep going!",
+  "Success is built one question at a time. You've got this!",
+  "The only way to learn is to keep trying. Don't give up!",
+  "Your next attempt will be even better!",
+  "Learning is a journey, not a destination. Keep exploring!",
+  "Every mistake is a step towards mastery.",
+  "The more you learn, the more you grow. Keep pushing!",
+  "Your potential is limitless. Keep practicing!",
+  "Success comes to those who persist. You're on the right track!",
+  "Every challenge is an opportunity to grow stronger."
+];
+
+function getRandomQuote() {
+  return motivationalQuotes[Math.floor(Math.random() * motivationalQuotes.length)];
+}
+
+// Confetti animation function
+function triggerConfetti(intensity = 1) {
+  const duration = 3 * 1000;
+  const animationEnd = Date.now() + duration;
+  const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 };
+
+  function randomInRange(min, max) {
+    return Math.random() * (max - min) + min;
+  }
+
+  const interval = setInterval(function() {
+    const timeLeft = animationEnd - Date.now();
+
+    if (timeLeft <= 0) {
+      return clearInterval(interval);
+    }
+
+    const particleCount = 50 * intensity;
+
+    // Since particles fall down, start a bit higher than random
+    confetti({
+      ...defaults,
+      particleCount,
+      origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 }
+    });
+    confetti({
+      ...defaults,
+      particleCount,
+      origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 }
+    });
+  }, 250);
+}

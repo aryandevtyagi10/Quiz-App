@@ -2,81 +2,114 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Tech Trivia Quiz</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Test your knowledge with our interactive Technology Trivia Quiz! Challenge yourself with questions about computers, programming, and tech history.">
+  <meta name="theme-color" content="#1a1a1a">
+  <title>Tech Trivia Quiz | Test Your Knowledge</title>
   <link rel="stylesheet" href="style.css">
-  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script> <!-- For icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 </head>
 <body>
+  <!-- Background Orbs -->
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
 
-  <!-- Start Screen -->
-  <div class="start_screen">
-    <h1>Welcome to the Tech Trivia Quiz!</h1>
-    <div class="start_btn">
-      <button>Start Quiz</button>
-    </div>
-  </div>
-
-  <!-- Info Box -->
-  <div class="info_box">
-    <h2>Quiz Rules</h2>
-    <div class="info_list">
-      <div class="info">1. You will have only <span>15 seconds</span> per question.</div>
-      <div class="info">2. Once you select your answer, it can't be undone.</div>
-      <div class="info">3. You can't select any option once time runs out.</div>
-      <div class="info">4. You'll get points on correct answers only.</div>
-    </div>
-    <div class="buttons">
-      <button class="quit">Exit Quiz</button>
-      <button class="restart">Continue</button>
-    </div>
-  </div>
-
-  <!-- Quiz Box -->
-  <div class="quiz_box">
-    <header>
-      <div class="title">Technology Quiz</div>
-      <div class="timer">
-        <div class="time_left_txt">Time Left</div>
-        <div class="timer_sec">15</div>
-      </div>
-      <div class="time_line"></div>
-    </header>
-
-    <section>
-      <div class="que_text">
-        <!-- Questions will be inserted dynamically here -->
-      </div>
-      <div class="option_list">
-        <!-- Options will be inserted dynamically here -->
+  <div class="container">
+    <!-- Start Screen -->
+    <section class="start_screen" role="region" aria-label="Welcome Screen">
+      <h1 class="main-title">Welcome to the Tech Trivia Quiz!</h1>
+      <p class="subtitle">Test your knowledge of technology and programming</p>
+      <div class="start_btn">
+        <button type="button" aria-label="Start the quiz">Start Quiz</button>
       </div>
     </section>
 
-    <footer>
-      <div class="total_que">
-        <!-- Question Count -->
+    <!-- Info Box -->
+    <section class="info_box" role="region" aria-label="Quiz Rules">
+      <h2>Quiz Rules</h2>
+      <div class="info_list">
+        <div class="info">
+          <i class="fas fa-clock"></i>
+          <p>You will have only <span>15 seconds</span> per question.</p>
+        </div>
+        <div class="info">
+          <i class="fas fa-lock"></i>
+          <p>Once you select your answer, it can't be undone.</p>
+        </div>
+        <div class="info">
+          <i class="fas fa-stopwatch"></i>
+          <p>You can't select any option once time runs out.</p>
+        </div>
+        <div class="info">
+          <i class="fas fa-star"></i>
+          <p>You'll get points on correct answers only.</p>
+        </div>
       </div>
-      <button class="next_btn">Next Question</button>
-    </footer>
-  </div>
+      <div class="buttons">
+        <button type="button" class="quit" aria-label="Exit the quiz">Exit Quiz</button>
+        <button type="button" class="restart" aria-label="Continue to quiz">Continue</button>
+      </div>
+    </section>
 
-  <!-- Result Box -->
-  <div class="result_box">
-    <div class="icon">
-      <i class="fas fa-crown"></i>
-    </div>
-    <div class="complete_text">You have completed the Quiz!</div>
-    <div class="score_text">
-      <!-- Score will be inserted dynamically here -->
-    </div>
-    <div class="buttons">
-      <button class="restart">Replay Quiz</button>
-      <button class="quit">Quit Quiz</button>
-    </div>
+    <!-- Quiz Box -->
+    <section class="quiz_box" role="region" aria-label="Quiz Questions">
+      <header>
+        <div class="title">Technology Quiz</div>
+        <div class="timer">
+          <div class="time_left_txt">Time Left</div>
+          <div class="timer_sec" aria-live="polite">15</div>
+        </div>
+        <div class="time_line" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+      </header>
+
+      <main>
+        <div class="que_text" aria-live="polite">
+          <!-- Questions will be inserted dynamically here -->
+        </div>
+        <div class="option_list" role="radiogroup">
+          <!-- Options will be inserted dynamically here -->
+        </div>
+      </main>
+
+      <footer>
+        <div class="total_que" aria-live="polite">
+          <span class="question-counter">
+            <span class="current">1</span>
+            <span class="separator">/</span>
+            <span class="total">5</span>
+          </span>
+          <span class="question-text">Questions</span>
+        </div>
+        <button type="button" class="next_btn" aria-label="Next question">Next Question</button>
+      </footer>
+    </section>
+
+    <!-- Result Box -->
+    <section class="result_box" role="region" aria-label="Quiz Results">
+      <div class="icon">
+        <i class="fas fa-crown" aria-hidden="true"></i>
+      </div>
+      <div class="complete_text">Quiz Completed!</div>
+      <div class="score_text" aria-live="polite">
+        <!-- Score will be inserted dynamically here -->
+      </div>
+      <div class="result_message">
+        <p class="message"></p>
+        <p class="sub_message">Keep learning and improving!</p>
+      </div>
+      <div class="buttons">
+        <button type="button" class="restart" aria-label="Play the quiz again">Replay Quiz</button>
+        <button type="button" class="quit" aria-label="Exit the quiz">Quit Quiz</button>
+      </div>
+    </section>
   </div>
 
   <!-- Script File -->
   <script src="script.js"></script>
-
 </body>
 </html>
