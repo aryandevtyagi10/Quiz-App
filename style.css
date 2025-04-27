@@ -1,0 +1,146 @@
+/* Basic Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Start Screen */
+.start_screen {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+  text-align: center;
+}
+
+.start_screen.hideStart {
+  display: none;
+}
+
+.start_btn button {
+  padding: 12px 24px;
+  font-size: 20px;
+  border: none;
+  border-radius: 50px;
+  background-color: #fff;
+  color: #764ba2;
+  cursor: pointer;
+  margin-top: 20px;
+  transition: 0.3s;
+}
+
+.start_btn button:hover {
+  background-color: #eee;
+}
+
+/* Info, Quiz and Result Boxes */
+.info_box,
+.quiz_box,
+.result_box {
+  display: none;
+  padding: 20px;
+  background: white;
+  width: 90%;
+  max-width: 500px;
+  margin: 50px auto;
+  border-radius: 10px;
+  box-shadow: 0px 0px 20px rgba(0,0,0,0.2);
+}
+
+.activeInfo,
+.activeQuiz,
+.activeResult {
+  display: block;
+}
+
+/* Timer and Progress */
+header .time_line {
+  height: 5px;
+  background: #ccc;
+  margin-bottom: 20px;
+  width: 0;
+}
+
+.timer .time_left_txt,
+.timer .timer_sec {
+  font-size: 20px;
+}
+
+.timer .timer_sec.lowTime {
+  color: red;
+  font-weight: bold;
+}
+
+/* Options */
+.option_list .option {
+  background: #f1f1f1;
+  padding: 12px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.option_list .option:hover {
+  background: #ddd;
+}
+
+.option.correct {
+  background: #a0e7a0;
+}
+
+.option.incorrect {
+  background: #f8a5a5;
+}
+
+.option.disabled {
+  pointer-events: none;
+}
+
+/* Badge */
+.badge {
+  background: #888;
+  color: white;
+  padding: 2px 6px;
+  margin-left: 10px;
+  border-radius: 8px;
+  font-size: 12px;
+}
+
+.badge.easy {
+  background: #6fcf97;
+}
+
+.badge.medium {
+  background: #f2c94c;
+}
+
+.badge.hard {
+  background: #eb5757;
+}
+
+/* Footer Buttons */
+footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.next_btn {
+  background: #667eea;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 30px;
+  cursor: pointer;
+  display: none;
+}
+
+.next_btn.show {
+  display: inline-block;
+}
